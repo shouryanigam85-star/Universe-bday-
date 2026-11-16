@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080916">
+  <meta name="description" content="A personal birthday universe made of memories, wishes, music and little joys.">
+  <title>Her Universe — Beyond the Stars, Made Just for You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="ambient-glow glow-one" aria-hidden="true"></div>
+  <div class="ambient-glow glow-two" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main id="app" class="app is-hidden">
+    <header class="topbar">
+      <button class="brand-button" type="button" data-go-home aria-label="Back to galaxy home">
+        <span class="brand-mark">✦</span>
+        <span class="brand-copy"><span class="brand-name">HER UNIVERSE</span><span class="brand-sub">BEYOND THE STARS, JUST FOR YOU</span></span>
+      </button>
+      <div class="topbar-actions">
+        <div class="discovery-counter" aria-live="polite"><span class="counter-orbit">✧</span><span id="discovery-count">0</span><span class="counter-label">/ 9 worlds explored</span></div>
+        <button id="sound-toggle" class="icon-button" type="button" aria-pressed="false" title="Turn small interface sounds on/off"><span aria-hidden="true">♫</span><span class="sound-label">SFX off</span></button>
+        <button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="quick-menu" aria-label="Open navigation menu"><span aria-hidden="true">☰</span></button>
+      </div>
+    </header>
+
+    <div id="quick-menu" class="quick-menu" hidden>
+      <p class="menu-eyebrow">YOUR UNIVERSE</p>
+      <div id="quick-menu-links" class="quick-menu-links"></div>
+      <button type="button" class="menu-close" id="menu-close">Close menu <span aria-hidden="true">×</span></button>
+    </div>
+
+    <section id="galaxy-home" class="galaxy-home" aria-labelledby="home-title">
+      <div class="home-heading">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A little universe made for someone special <span class="eyebrow-line"></span></p>
+        <h1 id="home-title">Welcome to your <em>world.</em></h1>
+        <p class="home-subtitle">Every star has a story, and every planet holds a little glimpse of you.</p>
+      </div>
+
+      <div class="orbit-stage" id="orbit-stage" aria-label="Explore the birthday universe">
+        <div class="nebula-cloud nebula-cloud-one" aria-hidden="true"></div>
+        <div class="nebula-cloud nebula-cloud-two" aria-hidden="true"></div>
+        <div class="orbit-ring orbit-ring-one" aria-hidden="true"></div>
+        <div class="orbit-ring orbit-ring-two" aria-hidden="true"></div>
+        <div class="orbit-ring orbit-ring-three" aria-hidden="true"></div>
+        <div class="orbit-dust" id="orbit-dust" aria-hidden="true"></div>
+        <div class="central-star" aria-hidden="true"><span class="central-star-core">✦</span><span class="central-star-halo"></span><span class="central-star-corona"></span></div>
+        <div class="center-note"><span class="center-kicker">THIS LITTLE GALAXY IS</span><strong id="center-name">YOUR NAME</strong><span class="center-caption">Happy Birthday, shining star.</span></div>
+        <button class="planet planet-memories" type="button" data-page="memories" aria-label="Explore our memories"><span class="planet-orb orb-rose"><i></i></span><span class="planet-label">Our Memories</span><span class="planet-meta">01 · sweet moments</span></button>
+        <button class="planet planet-timeline" type="button" data-page="timeline" aria-label="Explore our story"><span class="planet-orb orb-ice"><i></i></span><span class="planet-label">Our Story</span><span class="planet-meta">02 · story chapters</span></button>
+        <button class="planet planet-wishes" type="button" data-page="little-things" aria-label="Explore your little things"><span class="planet-orb orb-lilac"><i></i></span><span class="planet-label">Your Little Things</span><span class="planet-meta">03 · small joys</span></button>
+        <button class="planet planet-cake" type="button" data-page="birthday-cake" aria-label="Open the birthday cake"><span class="planet-orb orb-gold"><i></i></span><span class="planet-label">Birthday Cake</span><span class="planet-meta">04 · make a wish</span></button>
+        <button class="planet planet-letters" type="button" data-page="letter-vault" aria-label="Open the heartfelt letters"><span class="planet-orb orb-plum"><i></i></span><span class="planet-label">Heartfelt Letters</span><span class="planet-meta">05 · words from the heart</span></button>
+        <button class="planet planet-music" type="button" data-page="music-room" aria-label="Enter the music room"><span class="planet-orb orb-blue"><i></i></span><span class="planet-label">Music Room</span><span class="planet-meta">06 · our soundtrack</span></button>
+        <button class="planet planet-dreams" type="button" data-page="dreams" aria-label="Explore dreams ahead"><span class="planet-orb orb-mint"><i></i></span><span class="planet-label">Dreams Ahead</span><span class="planet-meta">07 · the road ahead</span></button>
+        <button class="planet planet-vault" type="button" data-page="secret-vault" aria-label="Open the secret vault"><span class="planet-orb orb-violet"><i></i></span><span class="planet-label">Secret Vault</span><span class="planet-meta">08 · a little riddle</span></button>
+        <button class="planet planet-final is-locked" id="final-planet" type="button" data-page="final-surprise" aria-label="Final surprise — unlocks when the secret vault riddle is solved"><span class="planet-orb orb-star"><i>✦</i></span><span class="planet-label">Final Surprise <span class="lock-symbol" aria-hidden="true">⌑</span></span><span class="planet-meta" id="final-planet-meta">09 · unlock the magic</span></button>
+      </div>
+
+      <div class="orbit-instruction"><span class="instruction-star">✧</span><span>Tap a planet to explore <i>·</i> Drag gently to rotate the galaxy</span><span class="instruction-star">✧</span></div>
+      <div class="home-footer"><span class="footer-sparkle">✧</span> Take your time exploring — there is no rush here. <span class="footer-sparkle">✧</span></div>
+      <button class="scroll-hint" id="how-to-explore" type="button"><span class="scroll-hint-dot"></span> A quick guide to exploring the galaxy <span aria-hidden="true">↓</span></button>
+    </section>
+
+    <section id="page-view" class="page-view" aria-live="polite" aria-label="Selected birthday experience" hidden>
+      <div class="page-topline"><button id="back-to-galaxy" class="back-button" type="button"><span aria-hidden="true">←</span> Back to galaxy</button><span id="page-index" class="page-index">A LITTLE WORLD</span><button id="page-menu-button" class="page-menu-button" type="button" aria-label="Open quick navigation">Explore another world <span aria-hidden="true">↗</span></button></div>
+      <div id="page-content" class="page-content"></div>
+      <div class="page-bottomline"><span class="footer-sparkle">✧</span><span id="page-footer-text">Made of stardust and little things.</span><span class="footer-sparkle">✧</span></div>
+    </section>
+
+    <footer class="site-footer"><span>MADE WITH A LITTLE STARDUST</span><span class="footer-dot">✦</span><span>JUST FOR YOU</span></footer>
+  </main>
+
+  <section id="intro" class="intro" aria-label="Birthday universe intro">
+    <div class="intro-top"><span class="intro-brand"><span>✦</span> YOUR PERSONAL COSMOS</span><button id="skip-intro" class="skip-intro" type="button">Skip intro <span aria-hidden="true">↗</span></button></div>
+    <div class="intro-composition">
+      <div class="intro-orbit intro-orbit-a" aria-hidden="true"></div>
+      <div class="intro-orbit intro-orbit-b" aria-hidden="true"></div>
+      <div class="intro-sun" aria-hidden="true"><span></span></div>
+      <div class="intro-copy">
+        <p class="intro-overline"><span class="tiny-star">✦</span> SOME DAYS ARE SPECIAL. <span class="tiny-star">✦</span></p>
+        <h1>Today is written<br>in the <em>stars.</em></h1>
+        <p class="intro-description">Among billions of stars, there is no one quite like you.<br>This little universe was made just for you.</p>
+        <div class="name-reveal"><svg class="name-star-path" viewBox="0 0 360 48" aria-hidden="true"><path d="M8 31 L39 11 L70 25 L103 8 L139 25 L179 10 L219 25 L256 8 L291 25 L326 10 L352 29"/><path d="M39 11 L46 38 L103 8 M179 10 L185 39 L256 8 M291 25 L300 40" class="constellation-branch"/><g><circle cx="8" cy="31" r="2.2"/><circle cx="39" cy="11" r="2.8"/><circle cx="70" cy="25" r="1.8"/><circle cx="103" cy="8" r="2.5"/><circle cx="139" cy="25" r="1.7"/><circle cx="179" cy="10" r="3"/><circle cx="219" cy="25" r="1.8"/><circle cx="256" cy="8" r="2.5"/><circle cx="291" cy="25" r="2"/><circle cx="326" cy="10" r="2.4"/><circle cx="352" cy="29" r="2"/></g></svg><span class="name-reveal-line"></span><span id="intro-name">YOUR NAME</span><span class="name-reveal-line"></span></div>
+        <button id="enter-universe" class="primary-button" type="button"><span>Explore Your Universe</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+        <p class="intro-microcopy"><span class="micro-dot"></span> A GENTLE SHIMMER AFTER YOU ENTER <span class="micro-dot"></span></p>
+      </div>
+    </div>
+    <div class="intro-bottom"><span>LESS SCROLLING. MORE FEELING.</span><span class="intro-bottom-center">✧ &nbsp; MADE OF MEMORIES AND BEAUTY &nbsp; ✧</span><span>STARTING RIGHT NOW</span></div>
+  </section>
+
+  <dialog id="lightbox" class="lightbox" aria-label="Memory photo">
+    <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Close photo">×</button>
+    <div class="lightbox-photo-wrap"><img id="lightbox-image" alt=""><div id="lightbox-placeholder" class="lightbox-placeholder" hidden>✦</div></div>
+    <div class="lightbox-caption"><span class="eyebrow">A MOMENT TO KEEP</span><h2 id="lightbox-title"></h2><p id="lightbox-description"></p></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input id="photo-upload" type="file" accept="image/*" multiple hidden>
+  <input id="audio-upload" type="file" accept="audio/*" hidden>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
